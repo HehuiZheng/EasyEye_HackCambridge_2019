@@ -24,9 +24,9 @@ SECRET_KEY = 'hb+-5usptcf+)yx_q-hd9_m5maa^r6ti7^i0p@)j2vqu3h2g7('
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ONLINE_DATABASE = False
+ONLINE_DATABASE = True
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['localhost', 'zhilingmail.pythonanywhere.com']
 
 
 # Application definition
@@ -89,10 +89,10 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'zhilingmail$learnAH',
-            'USER': 'zhilingmail',
-            'PASSWORD': 'yhack2018',
-            'HOST': 'zhilingmail.mysql.pythonanywhere-services.com',
+            'NAME': 'EasyEye',
+            'USER': 'dvmsc',
+            'PASSWORD': 'Chinesesf01',
+            'HOST': 'easyeye.database.windows.net',
         }
     }
 
