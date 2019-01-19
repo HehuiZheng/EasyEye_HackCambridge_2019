@@ -89,10 +89,15 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'EasyEye',
-            'USER': 'dvmsc',
+            'NAME': 'easyeye',
+            'USER': 'dvmsc@easyeyedb',
             'PASSWORD': 'Chinesesf01',
-            'HOST': 'easyeye.database.windows.net',
+            'HOST': 'easyeyedb.mysql.database.azure.com',
+            'OPTIONS': {
+                'ssl': {
+                    'ca':'BaltimoreCyberTrustRoot.crt.pem',
+                }
+            }
         }
     }
 
