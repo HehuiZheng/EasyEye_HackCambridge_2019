@@ -11,11 +11,11 @@ class GetAlertView(TemplateView):
     template_name = 'live_search/index.html'
 
     def get(self, request, *args, **kwargs):
-        received_json_data = json.loads(request.body)
+        #received_json_data = json.loads(request.body)
 
         data = {
             'msg':'Success',
-            'data':received_json_data,
+            #'data':received_json_data,
         }
 
         return JsonResponse({
