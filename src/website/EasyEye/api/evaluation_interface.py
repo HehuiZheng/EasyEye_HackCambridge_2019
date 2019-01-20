@@ -11,16 +11,48 @@ def create_alert(alert_wrong_direction=0,
     alert.alert_blink_slow = alert_blink_slow
     alert.alert_blur_sight = alert_blur_sight
     alert.alert_wrong_direction = alert_wrong_direction
-    alert.save()
+    #alert.save()
+    print(alert)
 
 
 def get_evaluation_data(timespan=5*60):
     end_time = datetime.now(timezone.utc)
+    # end_time = SecondData.objects.all().order_by('-start_time')[1000].start_time
+    records = SecondData.objects.filter(start_time__gte=end_time-timedelta(seconds=timespan),
+                                        start_time__lt=end_time).order_by('start_time')
+    print(records)
+    data = {
+        'timestamp':[],
+        'blink':[],
+        'deviation':[],
+        'squint':[],
+    }
+    for record in records:
+        data['timestamp'].append(record.start_time)
+        data['blink'].append(record.blink)
+        data['deviation'].append(record.direction)
+        data['squint'].append(record.squint)
+    start_records = SecondData.objects.filter(start_point=True).order_by('-start_time')
+    if start_records.count() >= 1:
+        data['start_point'] = start_records[0].start_time
+
+    return data
+
+def get_all_data():
     records = SecondData.objects.filter(start_time__gte=end_time-timedelta(seconds=timespan)).order_by('start_time')
     print(records)
     data = {
         'timestamp':[],
-        'data':[],
+        'blink':[],
+        'deviation':[],
+        'squint':[],
+        'start_point':[]
     }
     for record in records:
-        data['timestamp'].append(record.start_time.strftime("%Y-%m-%d %H:%M:%S.%f"))
+        data['timestamp'].append(record.start_time)
+        data['blink'].append(record.blink)
+        data['deviation'].append(record.direction)
+        data['squint'].append(record.squint)
+        data['start_point'].append(record.start_point)
+
+    return data

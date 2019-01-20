@@ -6,11 +6,14 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.http import JsonResponse
 from api.models import SecondData, Alert
-#from api.evaluation import evaluation
+from api.evaluation import evaluation
 
 # Create your views here.
 
-#evaluation()
+for i in range(10):
+    evaluation()
+    time.sleep(1)
+
 
 class GetAlertView(TemplateView):
     # API call processing
