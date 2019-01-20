@@ -48,11 +48,13 @@ class DataUploadView(TemplateView):
     '''
     def post(self, request, *args, **kwargs):
 
+        print('processing...')
+        print(request.body.decode('utf-8'))
+        received_json_data = json.loads(request.body.decode('utf-8'))
+        print(received_json_data)
+        
         try:
-            print('processing...')
-            print(request.body)
-            received_json_data = json.loads(request.body)
-            print(received_json_data)
+
             '''
             for i in range(len(timestamps)):
             data = []
