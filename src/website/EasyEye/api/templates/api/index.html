@@ -16,11 +16,11 @@
 #myDiv2 {float:right;}
 </style>
 
-<a><font size="25">{{ average_blink }}</font></a>
-<br>
-<div id="myDiv"><!-- Plotly chart will be drawn inside this DIV --></div>
+<a><font size="25">Average Blink Number: {{ average_blink }}</font></a>
 <br>
 <div id="myDiv2"><!-- Plotly chart will be drawn inside this DIV --></div>
+<br>
+<div id="myDiv"><!-- Plotly chart will be drawn inside this DIV --></div>
 <script>
     var data = [{
       values: [{{ squint_ratio }}, 1-{{ squint_ratio }} ],
