@@ -45,32 +45,34 @@ class GetAlertView(TemplateView):
 class DataUploadView(TemplateView):
     # API call processing
     '''
-    '''
+    [{"deviation": 0.7222222222222222,
+    "squint": 0.26785714285714285,
+    "blink": 0,
+     "time": "2019-01-20 03:46:40.621979"},
+     '''
     def post(self, request, *args, **kwargs):
 
-        print('processing...')
-        print(request.body.decode('utf-8'))
-        received_json_data = json.loads(request.body.decode('utf-8'))
-        print(received_json_data)
-        
-        try:
+        #print('processing...')
 
-            '''
-            for i in range(len(timestamps)):
-            data = []
-            new_record = SecondData()
-            start_time = datetime.strptime(timestamp, "%Y-%m-%d %H:%M:%S.%f")
-            start_time = pytz.timezone('UTC').localize(start_time)
-            #print(start_time)
-            new_record.start_time = start_time
-            new_record.blink = data[0]
-            new_record.direction = data[1]
-            new_record.squint = data[2]
-            if SecondData.objects.filter(start_time__gt=datetime.utcnow() - timedelta(minutes=1)).count() == 0:
-                new_record.start_point = True
-            print(new_record)
-            new_record.save()
-            '''
+
+        try:
+            received_json_data = json.loads(request.body.decode('utf-8'))
+            
+            for record in received_json_data:
+
+                new_record = SecondData()
+                start_time = datetime.strptime(record['time'], "%Y-%m-%d %H:%M:%S.%f")
+                start_time = pytz.timezone('UTC').localize(start_time)
+                #print(start_time)
+                new_record.start_time = start_time
+                new_record.blink = record['blink']
+                new_record.direction = record['deviation']
+                new_record.squint = record['squint']
+                if SecondData.objects.filter(start_time__gt=datetime.utcnow() - timedelta(minutes=1)).count() == 0:
+                    new_record.start_point = True
+                print(new_record)
+                #new_record.save()
+
             return JsonResponse({
                 'msg': 'Success',
                 'data': received_json_data,

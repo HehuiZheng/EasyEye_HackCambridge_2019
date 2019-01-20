@@ -7,8 +7,8 @@ class SecondData(models.Model):
 
     start_time = models.DateTimeField()
     blink = models.PositiveSmallIntegerField(default=0)
-    direction = models.PositiveSmallIntegerField(default=0)
-    squint = models.PositiveSmallIntegerField(default=0)
+    direction = models.FloatField(default=0)
+    squint = models.FloatField(default=0)
     start_point = models.BooleanField(default=False)
     def __str__(self):
         return (str(self.start_time) + "||" + str(self.blink) + ' '
