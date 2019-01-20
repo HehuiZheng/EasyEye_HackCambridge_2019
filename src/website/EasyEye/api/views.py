@@ -68,7 +68,7 @@ class DataUploadView(TemplateView):
                 new_record.squint = record['squint']
                 if SecondData.objects.filter(start_time__gt=datetime.utcnow() - timedelta(minutes=1)).count() == 0:
                     new_record.start_point = True
-                #print(new_record)
+                print(new_record)
                 new_record.save()
 
             return JsonResponse({
