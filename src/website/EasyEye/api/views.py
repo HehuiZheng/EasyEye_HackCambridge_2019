@@ -10,9 +10,9 @@ from api.evaluation import evaluation
 
 # Create your views here.
 
-for i in range(10):
-    evaluation()
-    time.sleep(1)
+#for i in range(10):
+#    evaluation()
+#    time.sleep(1)
 
 
 class GetAlertView(TemplateView):
