@@ -50,7 +50,8 @@ class DataUploadView(TemplateView):
 
         try:
             print('processing...')
-            received_json_data = json.loads(request.body.decode("utf-8"))
+            print(request.body)
+            received_json_data = json.loads(request.body)
             print(received_json_data)
             '''
             for i in range(len(timestamps)):
