@@ -1,13 +1,16 @@
 import json
 import pytz
+import time
 from datetime import datetime, timedelta
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.http import JsonResponse
 from api.models import SecondData, Alert
+from api.evaluation import evaluation
 
 # Create your views here.
 
+#evaluation()
 
 class GetAlertView(TemplateView):
     # API call processing
@@ -57,7 +60,7 @@ class DataUploadView(TemplateView):
             received_json_data = json.loads(request.body.decode('utf-8'))
 
             for record in received_json_data:
-
+                time1 = time.time()
                 new_record = SecondData()
                 start_time = datetime.strptime(record['time'], "%Y-%m-%d %H:%M:%S.%f")
                 start_time = pytz.timezone('UTC').localize(start_time)
@@ -66,10 +69,14 @@ class DataUploadView(TemplateView):
                 new_record.blink = record['blink']
                 new_record.direction = record['deviation']
                 new_record.squint = record['squint']
+                time2 = time.time()
                 if SecondData.objects.filter(start_time__gt=datetime.utcnow() - timedelta(minutes=1)).count() == 0:
                     new_record.start_point = True
-                print(new_record)
+                time3 = time.time()
+                #print(new_record)
                 new_record.save()
+                time4 = time.time()
+                print(time2-time1, time3-time2, time4-time3)
 
             return JsonResponse({
                 'msg': 'Success',
