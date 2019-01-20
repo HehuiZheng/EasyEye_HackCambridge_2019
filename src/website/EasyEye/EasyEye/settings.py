@@ -80,8 +80,8 @@ if not ONLINE_DATABASE:
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'EasyEye',
-            'USER': 'root',
-            'PASSWORD': 'linweizhe',
+            'USER': '',
+            'PASSWORD': '',
             'HOST': '127.0.0.1',
         }
     }
@@ -90,8 +90,8 @@ else:
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'easyeye',
-            'USER': 'dvmsc@easyeyedb',
-            'PASSWORD': 'Chinesesf01',
+            'USER': '',
+            'PASSWORD': '',
             'HOST': 'easyeyedb.mysql.database.azure.com',
             'OPTIONS': {
                 'ssl': {

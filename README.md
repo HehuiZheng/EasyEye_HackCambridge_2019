@@ -22,9 +22,19 @@ Facial landmark detection and data uploading
 ## Run the code
 ### Django server
 ```angular2html
-
 python manage.py makemigrations
 python manage.py migrate
-python
+python manage.py runserver
+```
+### Evaluator
+```angular2html
+export DJANGO_SETTINGS_MODULE=EasyEye.settings
+python evaluation_tool.py
+```
+### Facial Detection
+#### 1st step: Download dlib/OpenCV and install
 
+#### 2st step: Run the code
+```angular2html
+python feature_extraction.py
 ```
