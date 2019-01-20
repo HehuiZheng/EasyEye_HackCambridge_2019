@@ -49,6 +49,7 @@ class DataUploadView(TemplateView):
     def post(self, request, *args, **kwargs):
 
         try:
+            print('processing...')
             received_json_data = json.loads(request.body.decode("utf-8"))
             print(received_json_data)
             '''
