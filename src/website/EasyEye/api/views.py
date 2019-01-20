@@ -52,26 +52,24 @@ class DataUploadView(TemplateView):
      '''
     def post(self, request, *args, **kwargs):
 
-        #print('processing...')
-        received_json_data = json.loads(request.body.decode('utf-8'))
-
-        for record in received_json_data:
-
-            new_record = SecondData()
-            start_time = datetime.strptime(record['time'], "%Y-%m-%d %H:%M:%S.%f")
-            start_time = pytz.timezone('UTC').localize(start_time)
-            # print(start_time)
-            new_record.start_time = start_time
-            new_record.blink = record['blink']
-            new_record.direction = record['deviation']
-            new_record.squint = record['squint']
-            if SecondData.objects.filter(start_time__gt=datetime.utcnow() - timedelta(minutes=1)).count() == 0:
-                new_record.start_point = True
-            print(new_record)
-            # new_record.save()
-
         try:
+            # print('processing...')
+            received_json_data = json.loads(request.body.decode('utf-8'))
 
+            for record in received_json_data:
+
+                new_record = SecondData()
+                start_time = datetime.strptime(record['time'], "%Y-%m-%d %H:%M:%S.%f")
+                start_time = pytz.timezone('UTC').localize(start_time)
+                # print(start_time)
+                new_record.start_time = start_time
+                new_record.blink = record['blink']
+                new_record.direction = record['deviation']
+                new_record.squint = record['squint']
+                if SecondData.objects.filter(start_time__gt=datetime.utcnow() - timedelta(minutes=1)).count() == 0:
+                    new_record.start_point = True
+                #print(new_record)
+                new_record.save()
 
             return JsonResponse({
                 'msg': 'Success',
