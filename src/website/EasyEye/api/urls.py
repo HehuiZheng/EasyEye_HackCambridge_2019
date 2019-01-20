@@ -7,4 +7,5 @@ app_name = "home"
 urlpatterns = [
     # ex: /polls/
     path('get_alert', views.GetAlertView.as_view(), name='get_alert'),
+    path('upload_data', views.DataUploadView.as_view(), name='upload_data'),
 ]
