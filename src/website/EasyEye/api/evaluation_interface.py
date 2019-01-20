@@ -9,9 +9,9 @@ def create_alert(alert_wrong_direction=0,
     alert.start_time = datetime.now(timezone.utc)
     alert.alert_usage_overtime=alert_usage_overtime
     alert.alert_blink_slow = alert_blink_slow
-    alert.alert_blur_sight = alert_blur_sight
+    alert.alert_blur_sight = 0#alert_blur_sight
     alert.alert_wrong_direction = alert_wrong_direction
-    #alert.save()
+    alert.save()
     print(alert)
 
 
@@ -20,7 +20,6 @@ def get_evaluation_data(timespan=5*60):
     # end_time = SecondData.objects.all().order_by('-start_time')[1000].start_time
     records = SecondData.objects.filter(start_time__gte=end_time-timedelta(seconds=timespan),
                                         start_time__lt=end_time).order_by('start_time')
-    print(records)
     data = {
         'timestamp':[],
         'blink':[],

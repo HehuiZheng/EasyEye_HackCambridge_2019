@@ -1,7 +1,7 @@
 import json
 import pytz
 import time
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.http import JsonResponse
@@ -26,6 +26,7 @@ class GetAlertView(TemplateView):
                 return JsonResponse({
                     'msg': 'Return Successfully',
                     'alert': [],
+                    'timestamp': datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S.%f')
                 })
             else:
                 alert = alerts[0]
