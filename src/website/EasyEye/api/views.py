@@ -23,14 +23,18 @@ class GetAlertView(TemplateView):
                 })
             else:
                 alert = alerts[0]
+            alert_message = []
+            if alert.alert_blink_slow:
+                alert_message.append('blink_too_slow')
+            if alert.alert_wrong_direction:
+                alert_message.append('wrong_direction')
+            if alert.alert_blur_sight:
+                alert_message.append('blur_sight')
+            if alert.alert_usage_overtime:
+                alert_message.append('usage_overtime')
             return JsonResponse({
                 'msg': 'Return Successfully',
-                'alert': [
-                    alert.alert_wrong_direction,
-                    alert.alert_blink_slow,
-                    alert.alert_blur_sight,
-                    alert.alert_usage_overtime,
-                          ],
+                'alert': alert_message,
                 'timestamp': alert.start_time.strftime('%Y-%m-%d %H:%M:%S.%f'),
             })
         except:
@@ -42,7 +46,7 @@ class DataUploadView(TemplateView):
     # API call processing
     '''
     '''
-    def get(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
 
         try:
             received_json_data = json.loads(request.body.decode("utf-8"))
