@@ -10,9 +10,14 @@ import cv2
 import time
 import urllib
 import json
+from multiprocessing import Process
 from datetime import datetime
 
 import feature_extractor
+
+def open_response(req):
+    resp = urllib.request.urlopen(req).read()
+    print(resp.read())
 
 def upload_data(data):
     s = time.clock()
@@ -20,9 +25,12 @@ def upload_data(data):
     data = json.dumps(data)
     data = data.encode("utf-8")
     req = urllib.request.Request(url, data)
-    resp = urllib.request.urlopen(req)
-    print(resp.read())
-    print(time.clock()-s)
+
+    p = Process(target=open_response, args=(req,))
+    p.start()
+    # resp = urllib.request.urlopen(req)
+    # print(resp.read())
+    print("uploading data takes: ", time.clock()-s)
 
 if __name__ == "__main__":
     # Initiate face detection module
@@ -46,30 +54,27 @@ if __name__ == "__main__":
         print("Fail to access camera")
         raise
 
-    # Init FPS counter
-    start = time.clock()
-    counter = 0
+    # Init data upload time recorder
+    data_time_start = time.clock()
     outputs = []
 
     while True:
         # (Re)Init output data variable
         output = {}
 
-        # Display fps and upload data
-        counter += 1
-        if time.clock() - start >= 1:
+        # upload data
+        if time.clock() - data_time_start >= 1:
+            print("cycle length: ", time.clock() - data_time_start)
+
             # upload data
-            try:
-                upload_data(outputs)
-            except:
-                pass
-            print(outputs)
+            upload_data(outputs)
+            print("data length: ", len(outputs))
+
+            # re-init output
             outputs = []
 
-            # print fps
-            print("FPS: ", counter)
-            start = time.clock()
-            counter = 0
+            # re-init time recorder
+            data_time_start = time.clock()
 
         # Capture frame-by-frame
         frame = stream.read()
