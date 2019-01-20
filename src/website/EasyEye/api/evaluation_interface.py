@@ -9,7 +9,7 @@ def create_alert(alert_wrong_direction=0,
     alert.start_time = datetime.now(timezone.utc)
     alert.alert_usage_overtime=alert_usage_overtime
     alert.alert_blink_slow = alert_blink_slow
-    alert.alert_blur_sight = 0#alert_blur_sight
+    alert.alert_blur_sight = True#alert_blur_sight
     alert.alert_wrong_direction = alert_wrong_direction
     alert.save()
     print(alert)

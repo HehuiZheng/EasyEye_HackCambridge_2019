@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Summary</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <!-- Numeric JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
+</head>
+<body>
+<a><font size="20">Summary</font></a>
+<br><br><br>
+
+<style type="text/css">
+#myDiv {float:left;}
+#myDiv2 {float:right;}
+</style>
+
+<a><font size="25">{{ average_blink }}</font></a>
+<br>
+<div id="myDiv"><!-- Plotly chart will be drawn inside this DIV --></div>
+<br>
+<div id="myDiv2"><!-- Plotly chart will be drawn inside this DIV --></div>
+<script>
+    var data = [{
+      values: [{{ squint_ratio }}, 1-{{ squint_ratio }} ],
+      labels: ['Squinting', 'Relaxing'],
+      type: 'pie'
+    }];
+
+    var layout = {
+      height: 400,
+      width: 500
+    };
+
+    Plotly.newPlot('myDiv', data, layout);
+
+    x_data = []
+    y_data = []
+    {% for time in time_list %}
+        x_data.push('{{time}}'.split('.')[0]);
+    {% endfor %}
+    {% for blink in average_blink_list %}
+        y_data.push(parseInt('{{blink}}'));
+    {% endfor %}
+    console.log(x_data)
+    var trace1 = {
+      x: x_data,
+      y: y_data,
+      mode: 'lines+markers',
+    type: 'scatter'
+    };
+
+
+    var data = [trace1];
+
+Plotly.newPlot('myDiv2', data);
+</script>
+</body>
+</html>

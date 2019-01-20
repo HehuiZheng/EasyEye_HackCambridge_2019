@@ -92,4 +92,15 @@ class DataUploadView(TemplateView):
             })
 
 
+class IndexView(TemplateView):
+    template_name = 'api/index.html'
+    def get(self, request, *args, **kwargs):
+        params={}
+        with open('api/data_output.txt') as f:
+            data = json.load(f)
+            print(data)
+            data['average_blink'] = int(data['average_blink'])
 
+            params = data
+
+        return self.render_to_response(params)
