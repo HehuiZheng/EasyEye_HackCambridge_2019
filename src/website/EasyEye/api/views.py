@@ -40,12 +40,16 @@ class GetAlertView(TemplateView):
 
 class DataUploadView(TemplateView):
     # API call processing
-
+    '''
+    '''
     def get(self, request, *args, **kwargs):
 
         try:
-            timestamp = request.GET['timestamp']
-            data = request.GET.getlist('data[]')
+            received_json_data = json.loads(request.body.decode("utf-8"))
+            print(received_json_data)
+            '''
+            for i in range(len(timestamps)):
+            data = []
             new_record = SecondData()
             start_time = datetime.strptime(timestamp, "%Y-%m-%d %H:%M:%S.%f")
             start_time = pytz.timezone('UTC').localize(start_time)
@@ -58,9 +62,10 @@ class DataUploadView(TemplateView):
                 new_record.start_point = True
             print(new_record)
             new_record.save()
-
+            '''
             return JsonResponse({
                 'msg': 'Success',
+                'data': received_json_data,
             })
         except:
             return JsonResponse({
